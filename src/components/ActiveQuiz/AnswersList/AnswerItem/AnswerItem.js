@@ -1,14 +1,24 @@
 import React from 'react';
 import './AnswerItem.css';
 
-function AnswerItem({ answer, onAnswerClick }) {
+function AnswerItem({ answer, onAnswerClick, state }) {
+    const cls = ['answer-item']
+
+    if (state) {
+        cls.push(state)
+        console.log(cls)
+    }
+
     return (
-        <li className='answer-item'
-            onClick={(() => onAnswerClick(answer.id))}
+        <li className={cls.join(' ')}
+            onClick={
+                (
+                    () => onAnswerClick(answer.id)
+                )
+            }
         >
             {answer.text}
-
-        </li>
+        </li >
     )
 }
 
