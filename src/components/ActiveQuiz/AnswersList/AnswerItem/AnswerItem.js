@@ -6,7 +6,6 @@ function AnswerItem({ answer, onAnswerClick, state }) {
 
     if (state) {
         cls.push(state)
-        console.log(cls)
     }
 
     return (

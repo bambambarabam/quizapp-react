@@ -1,0 +1,18 @@
+.finished-quiz {
+    padding: 20px;
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 0 10px;
+}
+
+.finished-quiz__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.finished-quiz__icon {
+    margin-left: 10px;
+}
