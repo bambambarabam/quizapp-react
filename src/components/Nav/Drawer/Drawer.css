@@ -34,7 +34,6 @@
     border: 1px solid #fff;
     border-radius: 5px;
     background-color: seashell;
-    padding: 5px 10px;
     margin-bottom: 5px;
     cursor: pointer;
     position: relative;
@@ -43,5 +42,9 @@
 }
 
 .drawer__link:hover {
-    opacity: .7s;
+    opacity: .7;
+}
+
+.drawer__link_active {
+    opacity: .7;
 }

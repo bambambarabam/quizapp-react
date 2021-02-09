@@ -1,0 +1,26 @@
+.auth{
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    flex-grow: 1;
+    width: 100%;
+    background: linear-gradient( 0.25turn, #d1239d, #d1cece, #4dc9fa);
+}
+
+.auth__container {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+.auth__header {
+    color: #fff;
+    text-align: center;
+}
+
+.auth__form{
+    background: #eee;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+    padding: 15px;
+    border-radius: 5px;
+}
