@@ -20,12 +20,12 @@
     transition: all 300ms ease-in-out;
 }
 
-.input__span{
+.input__span {
     color: red;
     font-size: 12px;
     font-weight: bold;
 }
 
-.input_invalid label {
+.input_invalid {
     color: red;
 }
