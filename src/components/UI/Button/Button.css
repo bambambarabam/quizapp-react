@@ -23,8 +23,8 @@
 }
 
 .button:disabled {
-    background: #ccc;
-    color: #000;
+    background: rgba(0, 0, 0, .1);
+    color: #fff;
     cursor: not-allowed;
 }
 
@@ -33,7 +33,8 @@
 }
 
 .success {
-    background: rgba(161, 250, 69, .1);
+    color: #fff;
+    background: rgba(13, 177, 27, 0.568);
 }
 
 .primary {
