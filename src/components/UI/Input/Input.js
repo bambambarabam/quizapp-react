@@ -5,15 +5,16 @@ function isInvalid({ valid, touched, shouldValidate }) {
     return !valid && touched && shouldValidate
 }
 
-function Input({ label, type, value, onChange, errorMessage, valid, touched, shouldValidate }) {
+function Input({ label, type, value, onChange, errorMessage, valid, touched, shouldValidate, isValid, required, minLength,
+    maxLength }) {
 
     const inputType = type || 'text';
     const labelClassName = ['input__label']
     const htmlFor = `${inputType}-${Math.random()}`;
 
-    if (isInvalid({ valid, touched, shouldValidate })) {
-        labelClassName.push('input_invalid')
-    }
+    // if (isInvalid({ valid, touched, shouldValidate })) {
+    //     labelClassName.push('input_invalid')
+    // }
 
     return (
         <div
@@ -26,17 +27,21 @@ function Input({ label, type, value, onChange, errorMessage, valid, touched, sho
             </label>
             <input
                 className='input'
+                minLength={minLength}
+                maxLength={maxLength}
                 type={inputType}
                 id={htmlFor}
+                placeholder={`${label}`}
                 value={value}
                 onChange={onChange}
+                required={required}
             />
             {
-                isInvalid({ valid, touched, shouldValidate })
+                !isValid
                     ?
                     <span
-                        className='input__span'>
-                        {errorMessage || 'Введите верное значение'}
+                        className={'input__span'}>
+                        {errorMessage}
                     </span>
                     :
                     null

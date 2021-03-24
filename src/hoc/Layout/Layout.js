@@ -4,7 +4,7 @@ import MenuToggle from '../../components/Nav/MenuToggle/MenuToggle';
 import Drawer from '../../components/Nav/Drawer/Drawer';
 
 const Layout = ({ children }) => {
-    const [isMenuOpened, setMenuOpened] = useState([]);
+    const [isMenuOpened, setMenuOpened] = useState(false);
     const toggleMenuHandler = () => setMenuOpened(!isMenuOpened);
 
     function menuCloseHandler() {

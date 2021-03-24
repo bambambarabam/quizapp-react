@@ -16,6 +16,7 @@
 
 .button:hover {
     border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .button:active {

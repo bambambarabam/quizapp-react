@@ -21,9 +21,13 @@
 }
 
 .input__span {
-    color: red;
+    color: rgba(247, 127, 16, 0.781);
     font-size: 12px;
     font-weight: bold;
+}
+
+.input__span-active {
+    display: block;
 }
 
 .input_invalid {

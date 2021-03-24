@@ -1,0 +1,21 @@
+.select__container {
+    margin-bottom: 15px;
+}
+
+.select__label {
+    margin: 0 0 3px 0;
+    font-weight: bold;
+    display: block;
+    padding: 0;
+}
+
+.select {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    margin: 0 0 5px;
+    height: 29px;
+    width: 100%;
+    outline: none;
+    transition: all .3s ease-in-out;
+}

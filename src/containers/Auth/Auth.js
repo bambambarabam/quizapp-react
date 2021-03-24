@@ -1,147 +1,96 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Auth.css';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
+import { useForm } from '../../hooks/useForm';
+import axios from 'axios';
 
+function Auth({ value }) {
 
-function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+    const emailField = useForm();
+    const passwordField = useForm();
 
-class Auth extends Component {
+    const isDisabled = !(emailField.isValid && passwordField.isValid)
 
-    state = {
-        isFormValid: false,
-        formControls: {
-            email: {
-                value: '',
-                type: 'email',
-                label: 'email',
-                errorMessage: 'Введите корректный email',
-                valid: false,
-                touched: false,
-                validation: {
-                    requred: true,
-                    email: true
-                }
+    function submitHandler(evt) {
+        evt.preventDefault();
+    }
 
-            },
-            password: {
-                value: '',
-                type: 'password',
-                label: 'Пароль',
-                errorMessage: 'Введите корректный пароль',
-                valid: false,
-                touched: false,
-                validation: {
-                    requred: true,
-                    minLength: 6
-                }
-            }
+    const loginHandler = async () => {
+        const authData = {
+            email: emailField.value,
+            password: passwordField.value,
+            returnSecureToken: true
+        }
+        try {
+            const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCDmgPDKX6iN6wA5ZWdSrbnmqYl6kxyob0', authData)
+            console.log(res.data)
+        } catch (err) {
+            console.log(err)
         }
     }
 
-    submitHandler = evt => {
-        evt.preventDefault()
-    }
 
-    loginHandler = () => {
-
-    }
-
-    regHandler = () => {
-
-    }
-
-    validateControl(value, validation) {
-        if (!validation) {
-            return true
+    const regHandler = async () => {
+        const authData = {
+            email: emailField.value,
+            password: passwordField.value,
+            returnSecureToken: true
         }
-        let isValid = true
-        if (validation.requred) {
-            isValid = value.trim() !== '' && isValid
+        try {
+            const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCDmgPDKX6iN6wA5ZWdSrbnmqYl6kxyob0', authData)
+            console.log(res.data)
+        } catch (err) {
+            console.log(err)
         }
-        if (validation.email) {
-            isValid = validateEmail(value) && isValid
-        }
-        if (validation.minLength) {
-            isValid = value.length >= validation.minLength && isValid
-        }
-        return isValid
     }
 
-    onChangeHandler = (evt, controlName) => {
-        const formControls = { ...this.state.formControls }
-        const control = { ...formControls[controlName] }
-
-        control.value = evt.target.value;
-        control.touched = true;
-        control.valid = this.validateControl(control.value, control.validation);
-        formControls[controlName] = control;
-
-        let isFormValid = true;
-
-        Object.keys(formControls).forEach(name => {
-            isFormValid = formControls[name].valid && isFormValid
-        })
-
-        this.setState({
-            formControls, isFormValid
-        })
-    }
-
-
-    renderInputs() {
-        return Object.keys(this.state.formControls).map((controlName, index) => {
-            const control = this.state.formControls[controlName]
-            return (
-                <Input
-                    key={controlName + index}
-                    type={control.type}
-                    value={control.value}
-                    valid={control.valid}
-                    touched={control.touched}
-                    label={control.label}
-                    shouldValidate={!!control.validation}
-                    errorMessage={control.errorMessage}
-                    onChange={evt => this.onChangeHandler(evt, controlName)}
-                />
-            )
-        })
-    }
-
-    render() {
-        return (
-            <div className='auth'>
-                <div className='auth__container'>
-                    <h1 className='auth__header'>Авторизация</h1>
-                    <form
-                        className='auth__form'
-                        onSubmit={this.submitHandler}>
-                        {
-                            this.renderInputs()
-                        }
-                        <Button
-                            type='success'
-                            onClick={this.loginHandler}
-                            disabled={!this.state.isFormValid}
-                        >
-                            Войти
-                            </Button>
-                        <Button
-                            type='primary'
-                            onClick={this.regHandler}
-                            disabled={!this.state.isFormValid}
-                        >
-                            Зарегистрироваться
-                            </Button>
-                    </form>
-                </div>
+    return (
+        <div className='auth'>
+            <div className='auth__container'>
+                <h1 className='auth__header'>Авторизация</h1>
+                <form
+                    className='auth__form'
+                    onSubmit={submitHandler}
+                >
+                    <Input
+                        type='email'
+                        value={value}
+                        label='email'
+                        minLength='6'
+                        maxLength='30'
+                        autocomplete='email'
+                        {...emailField}
+                        required={true}
+                    />
+                    <Input
+                        type='password'
+                        value={value}
+                        label='Пароль'
+                        minLength='8'
+                        maxLength='30'
+                        autocomplete='password'
+                        {...passwordField}
+                        required={true}
+                    />
+                    <Button
+                        type='success'
+                        onClick={loginHandler}
+                        disabled={isDisabled}
+                    >
+                        Войти
+                    </Button>
+                    <Button
+                        type='primary'
+                        onClick={regHandler}
+                        disabled={isDisabled}
+                    >
+                        Зарегистрироваться
+                    </Button>
+                </form>
             </div>
-
-        )
-    }
+        </div>
+    )
 }
 
 export default Auth;
